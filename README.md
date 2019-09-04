@@ -19,5 +19,7 @@ Contact Scott Coughlin https://ciera.northwestern.edu/directory/scott-coughlin/
 for this information.
 
 # Run local development server
+```
 cd cmcweb
 python manage.py runserver
+```
