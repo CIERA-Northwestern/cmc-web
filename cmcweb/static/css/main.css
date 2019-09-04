@@ -1,0 +1,75 @@
+html, body {
+  background: white;
+  color: #4e2a84;
+  font: 400 18px/1.5 "Campton Extra Light", sans-serif;
+  margin: 0;
+}
+
+header {
+  background-color: #401f68;
+  padding: 1em;
+}
+
+header > nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header > nav > li {
+  display: inline-block;
+}
+
+header > nav > li > a {
+  color: white;
+  text-decoration: none;
+}
+
+header > nav > li > a.active {
+  color: white;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+header > nav > li > a:focus, header > nav > li > a:hover {
+  text-decoration: underline;
+}
+
+header > nav > li > a:active, header > nav > li > a:visited {
+  color: white;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+form label {
+  display: block;
+  margin: 1em 0
+}
+
+legend {
+  padding-left: 32px;
+  padding-right: 2px;
+  border: none;
+  font-size : xx-large;
+}
+
+label {
+  color : black;
+  display: block;
+  padding-left: 2px;
+  padding-right: 2px;
+  border: none;
+}
+
+@media screen and (max-width: 1200px) {
+  header > nav {
+    flex-direction: column;
+  }
+}
