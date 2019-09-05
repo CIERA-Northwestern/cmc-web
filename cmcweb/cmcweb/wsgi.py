@@ -12,7 +12,7 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "cmcweb.settings"
-#os.environ['HTTPS'] = "on"
+os.environ['HTTPS'] = "on"
 os.environ['CMC_NAME'] = ''
 os.environ['CMC_USER'] = ''
 os.environ['CMC_PASSWORD'] = ''
