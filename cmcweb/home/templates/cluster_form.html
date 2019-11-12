@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+  
+{% block content %}
+
+<h1>Collection to Subject Set</h1>
+<strong>UNDER CONSTRUCTION: DOES NOT WORK</strong>
+<form action="/download-cluster/download-cluster/" method="post" style="display: inline;">
+    {% csrf_token %}
+
+    <fieldset>
+    {% for field in form.visible_fields %}
+        <label>
+            {{ field.label }} : {{ field }}
+        </label>
+    {% endfor %}
+    <fieldset>
+
+    <button type="submit">Create Subject Set From Collection</button>
+</form>
+
+{% endblock %}

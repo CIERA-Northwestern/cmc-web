@@ -11,4 +11,9 @@ This website should allow end users to interact with globular cluster population
 that results from using CMC in an easy and intuitive way.
 </p>
 
+{% for tarfile, name in results %}
+    <a href="/cmc-models/{{ tarfile }}">{{name}}</a>
+    <br>
+{% endfor %}
+
 {% endblock %}
