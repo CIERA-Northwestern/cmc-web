@@ -20,7 +20,7 @@ from home import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^home/', views.home, name='home'),
-    url(r'^download-cluster/$', views.home2, name='home2'),
+    url(r'^download-cluster/download-cluster/$', views.download_cluster, name='download-cluster'),
     url(r'^admin/', admin.site.urls),
 ]
 

@@ -2,10 +2,8 @@
   
 {% block content %}
 
-<h1>Collection to Subject Set</h1>
-<strong>UNDER CONSTRUCTION: DOES NOT WORK</strong>
-<form action="/download-cluster/download-cluster/" method="post" style="display: inline;">
-    {% csrf_token %}
+<h1>Select Cluster To Download</h1>
+<form action="/download-cluster/download-cluster/" method="get" style="display: inline;">
 
     <fieldset>
     {% for field in form.visible_fields %}
@@ -15,7 +13,103 @@
     {% endfor %}
     <fieldset>
 
-    <button type="submit">Create Subject Set From Collection</button>
+    <button type="submit">Download Cluster</button>
 </form>
+
+<br><br><br>
+
+<h1> CMC CLUSTER CATALOG </h1>
+
+Welcome to the CMC Cluster Catalog web server. This server is the home for the database of CMC (for Cluster Monte Carlo) simulations described in Kremer et al. 2019, arXiv:1911.00018. 
+<br>
+<br>
+For a detailed description of the computational methods of CMC, choices of initial model parameters, and discussion of results, see Kremer et al. 2019. Here, we describe the various output files for the downloadable CMC simulations. The CMC source code, with accompanying tutorials and documentation, will be presented in a forthcoming paper.
+<br>
+<br>
+If you have specific questions, feel free to reach out to Kyle Kremer: kremer@northwestern.edu
+<br>
+<br>
+
+<h2> Organization </h2>
+Four initial cluster parameters are varied in this set of simulations: N (initial number of particles), virial radius, Galactocentric distance (assuming a Milky Way like potential), and metallicity. This gives us 4x4x3x3=144 total simulations. We also include four additional simulations with N=3.2e6, giving us 148 independent simulations in total. The user can select a particular cluster simulation of interest by choosing each of these four initial parameters from the relevant drop down menus.
+<br>
+<br>
+Once a particular simulation is selected, the user is prompted to download a compressed folder containing several files of interest for this simulation. We describe each of these files below:
+
+<br>
+<br>
+
+<h3> initial.conv.sh </h3> 
+The file initial.conv.sh contains all conversion factors used to convert from code to physical units. For example, to convert from code units of time to Myr, multiply by the factor timeunitsmyr, and so on.
+
+<br>
+<br>
+
+<h3> Snapshot Files </h3>
+The files initial.snap…dat.gz are time snapshots at distinct points in the clusters evolution. We output here up to 11 snapshots per simulation at t=0, 0.1, 1, 6, 10, 10.5, 11, 11.5, 12, 12.5, and 13 Gyr. If a particular simulation disrupts before 13 Gyr, then fewer snapshots are outputted. The specific time of each snapshot is indicated in the first line of each snapshot file (in code units).
+<br>
+<br>
+
+Each snapshot contains stellar radial positions, stellar types, and stellar properties for all N objects in the cluster at the given evolutionary time. These snapshots can be used to create, for example, surface brightness or velocity dispersion profiles, for a given cluster model. Below we summarize our stellar type and stellar ID label schemes.
+<br>
+<br>
+<i>Stellar Type Labels</i>: We adopt the stellar type labeling scheme of SSE/BSE (Hurley et al. 2000, 2002), as summarized below.
+<br>
+<ul>
+    <li>0 - deeply or fully convective low mass MS star</li>
+    <li>1 - Main Sequence star</li>
+    <li>2 - Hertzsprung Gap</li>
+    <li>3 - First Giant Branch</li>
+    <li>4 - Core Helium Burning</li>
+    <li>5 - First Asymptotic Giant Branch</li>
+    <li>6 - Second Asymptotic Giant Branch</li>
+    <li>7 - Main Sequence Naked Helium star</li>
+    <li>8 - Hertzsprung Gap Naked Helium star</li>
+    <li>9 - Giant Branch Naked Helium star</li>
+    <li>10 - Helium White Dwarf</li>
+    <li>11 - Carbon/Oxygen White Dwarf</li>
+    <li>12 - Oxygen/Neon White Dwarf</li>
+    <li>13 - Neutron Star</li>
+    <li>14 - Black Hole</li>
+    <li>15 - Massless Supernova</li>
+</ul>
+
+<i>CMC Stellar ID Numbers</i>: CMC assigns each star in the cluster an ID number (for 80,000 initial particles, including 8,000 binaries, initial IDs are assigned from 1 to 88000. These IDs are critical for keeping track of, for example, when a star undergoes dynamical encounters, collapses to a compact object, is ejected from the cluster, etc.
+<br>
+<br>
+<h3>initial.dyn.dat</h3>
+
+The initial.dyn.dat files contains various theoretical quantities pertaining to the dynamical evolution of your cluster, such as theoretical core radius, total mass, central density, central velocity dispersion, etc. This file may be used to create, for example, plots of core radii or half-light radii versus time for a given simulation.
+
+<br>
+<br>
+
+<h3>initial.binint.log</h3>
+Over the course of the evolution of the cluster, single stars and binaries will frequently undergo three- and four-body dynamical encounters, which are integrated directly in CMC using the Fewbody package (Fregeau et al. 2007). The file initial.binint.log records all input and output parameters (e.g., component masses, IDS, stellar types, semi-major axes, etc.) each type fewbody is called.
+
+<br>
+<br>
+<h3>initial.bh.dat</h3>
+This file contains the number of BHs (as well as BH binaries, etc.) at each dynamical time step. This is useful to plot, for example, the number of retained BHs versus time.
+
+<br><br>
+<h3>initial.BBHmerger.dat</h3>
+This file lists masses and merger times for all binary BH mergers occurring in the given simulation. Also listed are merger channels (ejected, in-cluster, etc.) as described in Section 9 of Kremer et al. 2019.
+
+<br><br>
+<h3>initial.collision.log</h3>
+This file lists stellar types and properties for all stellar collisions occurring in the given simulation. See Sections 6 and 7 of Kremer et al. 2019 for further detail.
+
+<br><br>
+<h3>initial.semergedisrupt.log</h3>
+This file lists all stellar mergers that occur through binary evolution in each simulation.
+
+<br><br>
+<h3>initial.esc.dat</h3>
+As the result of dynamical encounters (and other mechanisms such as cluster tidal truncation) single stars and binaries often become unbound from the cluster potential and are ejected from the system. When this happens, the ejection is recorded in initial.esc.dat.
+
+<br><br>
+<h3>initial.morepulsars.dat</h3>
+This files contains detailed information on all pulsars for each simulation. For further information on treatment of pulsars, see Ye et al. 2019, ApJ
 
 {% endblock %}
